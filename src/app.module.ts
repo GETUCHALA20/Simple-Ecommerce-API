@@ -4,6 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ItemsModule } from './items/items.module';
+import { CartsModule } from './carts/carts.module';
 require('dotenv').config()
 
 @Module({
@@ -11,6 +13,8 @@ require('dotenv').config()
     MongooseModule.forRoot(process.env.MONGO_URI, { useNewUrlParser: true }),
     UsersModule,
     AuthModule,
+    ItemsModule,
+    CartsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

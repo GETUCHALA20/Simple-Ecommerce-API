@@ -1,4 +1,6 @@
 import * as mongoose from 'mongoose';
+// tslint:disable-next-line:prefer-const
+import mongoosePaginate = require('mongoose-paginate');
 
 export const ItemSchema = new mongoose.Schema({
     owner: {
@@ -12,3 +14,5 @@ export const ItemSchema = new mongoose.Schema({
     price: String,
     createdAt: { type: Date, default: Date.now }
 })
+
+ItemSchema.plugin(mongoosePaginate);

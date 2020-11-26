@@ -1,13 +1,9 @@
 import * as mongoose from 'mongoose';
 
-export const OrderSchema = new mongoose.Schema({
+export const CartSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    },
-    totalPrice: {
-        type: Number,
-        default: 0
     },
     items: [
         {

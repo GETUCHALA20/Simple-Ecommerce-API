@@ -8,7 +8,7 @@ async function bootstrap() {
     .setTitle('Ecommerce API')
     .setDescription('The Ecommerce API description')
     .setVersion('1.0')
-    .addTag('items')
+    .addTag('Ecommerce')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);

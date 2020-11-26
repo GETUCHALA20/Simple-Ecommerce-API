@@ -1,29 +1,16 @@
-import { ApiProperty } from '@nestjs/swagger';
-
 export class CreateUserDTO {
-    @ApiProperty()
-    readonly name: string;
-
-    @ApiProperty()
-    readonly email: string;
-
-    @ApiProperty()
-    readonly password: string;
-
-    @ApiProperty()
-    readonly seller: boolean;
-
-    @ApiProperty()
-    readonly address: {
+    name: string;
+    email: string;
+    password: string;
+    seller?: boolean;
+    address: {
         addrl: string,
-        addr2: string,
-        city: string,
-        state: string,
-        country: string,
-        zip: string,
+        addr2?: string,
+        city?: string,
+        state?: string,
+        country?: string,
+        zip?: string,
      };
-
-     @ApiProperty()
-    readonly createdAt: Date;
+    createdAt?: Date;
 
 }

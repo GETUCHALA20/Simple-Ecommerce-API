@@ -4,7 +4,30 @@ import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { CreateItemDTO } from './dto/create-item.dto';
 
+
+export const ApiFile = (fileName: string = 'file'): MethodDecorator => (
+  target: any,
+  propertyKey: string,
+  descriptor: PropertyDescriptor,
+) => {
+  ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        [fileName]: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })(target, propertyKey, descriptor);
+};
+
+@ApiTags('items')
+@ApiBearerAuth()
 @Controller('items')
 export class ItemsController {
     constructor(private itemService: ItemsService){}
@@ -34,6 +57,8 @@ export class ItemsController {
       },
     ),
     )
+    @ApiConsumes('multipart/form-data')
+    @ApiFile()
     async create(@Res() res, @UploadedFile() file, @Body() body){
         const data = JSON.parse(body.data);
         const createItemDTO = data;
@@ -47,6 +72,7 @@ export class ItemsController {
 
     @Get(":id")
     @UseGuards(JwtAuthGuard)
+    @ApiParam({ name: 'id', type: String })
     async singleItem(@Res() res, @Param('id') id){
         const news = await this.itemService.getItem(id);
         if (!news) { throw new NotFoundException('Item does not exist!'); }
@@ -55,6 +81,7 @@ export class ItemsController {
 
     @Put(':id')
     @UseGuards(JwtAuthGuard)
+    @ApiParam({ name: 'id', type: String })
     @UseInterceptors(FileInterceptor('file',
      {
        storage: diskStorage({
@@ -67,6 +94,8 @@ export class ItemsController {
      },
    ),
    )
+    @ApiConsumes('multipart/form-data')
+    @ApiFile()
     async updateItem(@Res() res, @Param('id') id, @UploadedFile() file, @Body() body){
         const data = JSON.parse(body.data);
         const createItemDTO = data;
@@ -81,6 +110,7 @@ export class ItemsController {
 
     @Delete(":id")
     @UseGuards(JwtAuthGuard)
+    @ApiParam({ name: 'id', type: String })
     async deleteItem(@Res() res, @Param('id') id){
         const item = await this.itemService.deleteItem(id);
         if (!item) {throw new NotFoundException('Item does not exist'); }

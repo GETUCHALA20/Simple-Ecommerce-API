@@ -9,6 +9,7 @@ async function bootstrap() {
     .setDescription('The Ecommerce API description')
     .setVersion('1.0')
     .addTag('Ecommerce')
+    .addBearerAuth({ in: 'header', type: 'http' })
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);

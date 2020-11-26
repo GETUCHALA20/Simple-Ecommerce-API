@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateCartDTO } from './dto/cart.dto';
+import { CreateCartDTO } from './dto/create-cart.dto';
 import { Cart } from './interfaces/cart.interface';
 
 @Injectable()

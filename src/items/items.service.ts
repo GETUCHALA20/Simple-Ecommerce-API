@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Item } from './interfaces/item.interface';
 import { Model } from 'mongoose';
-import { CreateItemDTO } from './dto/item.dto';
+import { CreateItemDTO } from './dto/create-item.dto';
 
 @Injectable()
 export class ItemsService {
@@ -11,7 +11,9 @@ export class ItemsService {
     // fetch all Item per page
     async getAllItem(options): Promise<Item[]> {
         // sort([['price', -1]])
-        const items = await this.itemModel.paginate({}, options).populate('owner');
+        const items = await this.itemModel.find().populate("owner")
+        .skip(0)
+        .limit(9);
         return items;
     }
 

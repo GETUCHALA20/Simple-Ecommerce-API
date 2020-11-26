@@ -6,7 +6,6 @@ export interface Item extends Document{
     readonly name: string;
     readonly description: string;
     readonly vendorName: string;
-    readonly image: string;
     readonly price: string;
     readonly createdAt: Date;
 }

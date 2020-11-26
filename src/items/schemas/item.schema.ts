@@ -10,7 +10,6 @@ export const ItemSchema = new mongoose.Schema({
     name: String,
     description: String,
     vendorName: String,
-    image: String,
     price: String,
     createdAt: { type: Date, default: Date.now }
 })

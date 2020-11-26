@@ -29,13 +29,13 @@ export class ItemsService {
         return newItem.save();
     }
 
-    // Edit news details
+    // Edit item details
     async updateItem(id, createItemDTO: CreateItemDTO): Promise<Item> {
         const updatedItem = await this.itemModel
             .findByIdAndUpdate(id, createItemDTO, { new: true });
         return updatedItem;
     }
-    // Delete a single news
+    // Delete a single item
     async deleteItem(id): Promise<any> {
         const deletedItem = await this.itemModel.findByIdAndRemove(id);
         return deletedItem;

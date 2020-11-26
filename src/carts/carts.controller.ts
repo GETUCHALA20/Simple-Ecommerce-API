@@ -4,7 +4,7 @@ import { CartsService } from './carts.service';
 
 @ApiTags('Cart')
 @ApiBearerAuth()
-@Controller('carts')
+@Controller('cart')
 export class CartsController {
     constructor(private cartsService: CartsService){}
 

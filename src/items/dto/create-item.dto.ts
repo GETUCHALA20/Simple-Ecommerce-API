@@ -3,7 +3,6 @@ export class CreateItemDTO {
     name: string;
     description: string;
     vendorName: string;
-    image: string;
     price: string;
     createdAt: Date;
 }

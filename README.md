@@ -60,7 +60,7 @@ $ npm run test:cov
 | [`POST/user/signUp`](#a-sign-up-a-new-user)    | Sign up a new user |
 | [`POST/auth/login`](#b-login-a-existing-user)     | Login a user |        
 
-### [Order Routes](#3-order-routes)
+### [Cart Routes](#3-cart-routes)
 | Routes        | Description           | 
 | ------------- |:-------------:|
 | [`GET/cart/userId`](#a-get-cart-of-a-user)    | Get cart detail of a user |

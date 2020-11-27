@@ -1,5 +1,9 @@
+import { ApiProperty } from "@nestjs/swagger";
+import { CreateItemDTO } from "src/items/dto/create-item.dto";
+
 export class CreateCartDTO {
-    readonly owner: string;
-    readonly items: [{item:string,quantity:string}];
-    readonly createdAt: Date;
+     owner: string;
+     @ApiProperty({ type: () => [CreateItemDTO] })
+     items: [{item:string,quantity:string}];
+     createdAt?: Date;
 }

@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Res } from '@nestjs/common';
-import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
-import { use } from 'passport';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Res, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiParam, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CartsService } from './carts.service';
 import { CreateCartDTO } from './dto/create-cart.dto';
 
@@ -12,13 +12,16 @@ export class CartsController {
 
     @Get(":userId")
     @ApiParam({ name: 'userid', type: String })
+    @UseGuards(JwtAuthGuard)
     async cartDetail(@Res() res, @Param('userId') userId){
         const cart = await this.cartsService.cartDetails(userId);
         return res.status(HttpStatus.OK).json(cart);
     }
     
     @Post('addItem')
-    async addToCart(@Res() res, createCartDTO: CreateCartDTO){
+    @UseGuards(JwtAuthGuard)
+    @ApiProperty({ type: () => CreateCartDTO })
+    async addToCart(@Res() res, @Body() createCartDTO: CreateCartDTO){
         const userId = createCartDTO.owner;
         const itemId = createCartDTO.items[0].item;
         const quantity = parseInt(createCartDTO.items[0].quantity);
@@ -26,7 +29,15 @@ export class CartsController {
         return res.status(HttpStatus.OK).json(cart);
     }
 
+    @Post('addBulk')
+    @UseGuards(JwtAuthGuard)
+    async addMultipleItemToCart(@Res() res,@Body() createCartDTO: CreateCartDTO){
+        const cart = await this.cartsService.addMultipleItemToCart(createCartDTO);
+        return res.status(HttpStatus.OK).json(cart);
+    }
+
     @Delete('removeItem/:itemId')
+    @UseGuards(JwtAuthGuard)
     async removeFromCart(@Res() res, @Param('itemId') itemId,@Body() userId){
         const cart = await this.cartsService.removeItemFromCart(itemId,userId);
         return res.status(HttpStatus.OK).json(cart);

@@ -1,8 +1,7 @@
 import { Document } from 'mongoose';
-import { User } from 'src/users/interfaces/user.interface';
 
 export interface Item extends Document{
-    readonly owner: User;
+    readonly owner: string;
     readonly name: string;
     readonly description: string;
     readonly vendorName: string;

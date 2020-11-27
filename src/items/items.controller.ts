@@ -23,7 +23,7 @@ export class ItemsController {
 
     @Post()
     @UseGuards(JwtAuthGuard)
-    async create(@Res() res, @UploadedFile() file, @Body() createItemDTO:CreateItemDTO){
+    async create(@Res() res, @Body() createItemDTO:CreateItemDTO){
         const item = await this.itemService.addItem(createItemDTO);
         return res.status(HttpStatus.OK).json({
             message: 'Item has been created successfully',
@@ -31,20 +31,20 @@ export class ItemsController {
         });
     }
 
-    @Get(":id")
+    @Get(":itemId")
     @UseGuards(JwtAuthGuard)
-    @ApiParam({ name: 'id', type: String })
-    async singleItem(@Res() res, @Param('id') id){
-        const news = await this.itemService.getItem(id);
+    @ApiParam({ name: 'itemId', type: String })
+    async singleItem(@Res() res, @Param('itemId') itemId){
+        const news = await this.itemService.getItem(itemId);
         if (!news) { throw new NotFoundException('Item does not exist!'); }
         return res.status(HttpStatus.OK).json(news);
     }
 
-    @Put(':id')
+    @Put(':itemId')
     @UseGuards(JwtAuthGuard)
-    @ApiParam({ name: 'id', type: String })
-    async updateItem(@Res() res, @Param('id') id, @UploadedFile() file, @Body() createItemDTO: CreateItemDTO){
-        const item = await this.itemService.updateItem(id, createItemDTO);
+    @ApiParam({ name: 'itemId', type: String })
+    async updateItem(@Res() res, @Param('itemId') itemId, @Body() createItemDTO: CreateItemDTO){
+        const item = await this.itemService.updateItem(itemId, createItemDTO);
         if (!item) { throw new NotFoundException('Item does not exist!'); }
         return res.status(HttpStatus.OK).json({
             message: 'Item has been successfully updated',
@@ -52,11 +52,11 @@ export class ItemsController {
         });
     }
 
-    @Delete(":id")
+    @Delete(":itemId")
     @UseGuards(JwtAuthGuard)
-    @ApiParam({ name: 'id', type: String })
-    async deleteItem(@Res() res, @Param('id') id){
-        const item = await this.itemService.deleteItem(id);
+    @ApiParam({ name: 'itemId', type: String })
+    async deleteItem(@Res() res, @Param('itemId') itemId){
+        const item = await this.itemService.deleteItem(itemId);
         if (!item) {throw new NotFoundException('Item does not exist'); }
         return res.status(HttpStatus.OK).json({
             message: 'Item has been deleted',

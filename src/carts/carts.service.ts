@@ -37,14 +37,27 @@ export class CartsService {
           cart.products.push({ item:itemId});
         }
         await cart.save();
+        return cart;
       } else {
         //no cart for user, create new cart
-      await this.cartModel.create({
+      const newCart = await this.cartModel.create({
           owner: userId,
           items: [{ item:itemId }]
         });
+      
+      return newCart;
   
       }
+    }
+
+    async addMultipleItemToCart(createCartDTO: CreateCartDTO){
+      const { _id } = await this.cartModel.create(createCartDTO);
+      
+      let order = await this.cartModel
+        .findById(_id)
+        .populate('owner')
+        .populate('products.product');
+      return order;
     }
 
     async removeItemFromCart(userId: string, itemId:string){
@@ -57,5 +70,6 @@ export class CartsService {
         }
         await cart.save()
       }
+      return cart;
     }
 }

@@ -31,6 +31,8 @@ $ npm run start:prod
 ```
 App should now be running on **localhost:5000**
 
+Swagger API documentation should now be running on **localhost:5000/api**
+
 ## Test
 
 ```bash

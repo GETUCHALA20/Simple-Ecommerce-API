@@ -52,9 +52,9 @@ $ npm run test:cov
 | ------------- |:-------------:|
 | [`GET/items/`](#a-get-list-of-all-items)    |Get list of all items|
 | [`POST/items/`](#b-post-a-new-item)     | Post a new item |     
-| [`GET/items/{id}`](#c-get-details-of-a-particular-item)| Get details of a particular item. |    
-| [`PATCH/items/{id}`](#d-update-a-particular-item) | Update a particular item |
-| [`DELETE/items/{id}`](#e-delete-a-particular-item) |Delete a particular item |
+| [`GET/items/{itemId}`](#c-get-details-of-a-particular-item)| Get details of a particular item. |    
+| [`PATCH/items/{itemId}`](#d-update-a-particular-item) | Update a particular item |
+| [`DELETE/items/{itemId}`](#e-delete-a-particular-item) |Delete a particular item |
 
 ### [User and Auth Routes](#2-user-routes)
 | Routes        | Description           | 
